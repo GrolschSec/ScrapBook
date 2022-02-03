@@ -111,7 +111,7 @@ def get_all():
     for link in links:
         a.append(url + link.attrs['href'])
     i = 0
-    while i != (len(a) - 1):
+    while i != len(a):
         csvfile = open('CSV_Files/' + cat[i], 'w', newline='', encoding='utf8')
         c = csv.writer(csvfile)
         c.writerow(header)
