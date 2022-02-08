@@ -5,33 +5,11 @@ import csv
 import os
 
 url = "https://books.toscrape.com/"
-book_urls = []
-upcs = []
-titles = []
-pit = []
-pet = []
-na = []
-pd = []
-cate = []
-rr = []
-image_urls = []
 
 
 def make_dir():
     os.system("mkdir Images")
     os.system("mkdir CSV_Files")
-
-
-def clear_global():
-    book_urls.clear()
-    upcs.clear()
-    titles.clear()
-    pit.clear()
-    pet.clear()
-    na.clear()
-    pd.clear()
-    cate.clear()
-    rr.clear()
 
 
 def url_to_jpg(image_url, file_path):
@@ -43,53 +21,102 @@ def url_to_jpg(image_url, file_path):
 
 
 def get_book_info(book_url):
+    """
+    This function is used to get all info about a book from his url.
+    This function only work with book.toscrape.com.
+
+    Args:
+        book_url: The url of the book.
+
+    Return:
+        book_url: The url of the book.
+        upc: The universal product code.
+        title: The title of the book.
+        pit: The price including tax.
+        pet: The price excluding tax.
+        pd: The product description.
+        category: The category of book.
+        rr: The rate review.
+        image_url: The url of the image to descript the book.
+    """
     page = requests.get(book_url)
+    upc = ""
+    title = ""
+    pit = ""
+    pet = ""
+    na = ""
+    pd = ""
+    category = ""
+    rr = ""
+    image_url = ""
     if page.ok:
         soup = BeautifulSoup(page.content, "html.parser")
         book_swap = soup.find_all("td", class_=False)
-        book_urls.append(book_url)
-        upcs.append(book_swap[0].text)
-        titles.append(soup.find("h1").text)
-        pit.append(book_swap[3].text)
-        pet.append(book_swap[2].text)
-        na.append(book_swap[5].text.split(" ")[2].replace("(", ""))
-        pd.append(soup.find_all("p")[3].text)
-        cate.append(soup.find_all("a")[3].text)
-        rr.append(soup.find("p", class_="star-rating").attrs["class"][1])
+        upc = book_swap[0].text
+        title = soup.find("h1").text
+        pit = book_swap[3].text
+        pet = book_swap[2].text
+        na = book_swap[5].text.split(" ")[2].replace("(", "")
+        pd = soup.find_all("p")[3].text
+        category = soup.find_all("a")[3].text
+        rr = soup.find("p", class_="star-rating").attrs["class"][1]
         image_url = url + soup.find("img").attrs["src"].replace("../../", "/")
-        image_urls.append(image_url)
-        url_to_jpg(image_url, "Images/")
     else:
         print("Status Code: " + str(page.status_code))
+    return book_url, upc, title, pit, pet, na, pd, category, rr, image_url
 
 
 def get_category(category_url):
     page = requests.get(category_url)
-    if page.ok:
+    soup = BeautifulSoup(page.content, "html.parser")
+    links = []
+    category_name = soup.findAll("div", class_="page-header")
+    h3s = soup.findAll("h3")
+    for h3 in h3s:
+        links.append(
+            url + h3.find("a").attrs["href"].replace("../../../", "catalogue/")
+        )
+    while soup.find(class_="next"):
+        new_link = category_url.split("/")
+        del new_link[7]
+        new_link.append(soup.find(class_="next").find("a").attrs["href"])
+        deli = "/"
+        temp = list(map(str, new_link))
+        new_link = deli.join(temp)
+        page = requests.get(new_link)
         soup = BeautifulSoup(page.content, "html.parser")
-        links = []
         h3s = soup.findAll("h3")
         for h3 in h3s:
-            a = url + h3.find("a").attrs["href"].replace("../../../", "catalogue/")
-            links.append(a)
-        for link in links:
-            get_book_info(link)
-
-        if int(soup.findAll("strong")[1].text) > 20:
-            if int(soup.find(class_="current").text.split()[1]) < int(
-                soup.find(class_="current").text.split()[3]
-            ):
-                new_link = category_url.split("/")
-                del new_link[7]
-                new_link.append(soup.find(class_="next").find("a").attrs["href"])
-                deli = "/"
-                temp = list(map(str, new_link))
-                res = deli.join(temp)
-                get_category(res)
-    else:
-        print("Status Code: " + str(page.status_code))
+            links.append(
+                url + h3.find("a").attrs["href"].replace("../../../", "catalogue/")
+            )
+    return category_name, links
 
 
+def write_csv(cat_name, cat_data):
+    header = [
+        "Product URL",
+        "Universal Product Code",
+        "Title",
+        "Price Including Tax",
+        "Price Excluding Tax",
+        "Number Available",
+        "Product Description",
+        "Category",
+        "Review Rating",
+        "Image  URL",
+    ]
+    csvfile = open("CSV_Files/" + cat_name, "w", newline="", encoding="utf8")
+    c = csv.writer(csvfile)
+    c.writerow(header)
+    for i in range(len(cat_data)):
+        c.writerow(cat_data[i])
+        i += 1
+    csvfile.close()
+    return None
+
+
+"""
 def get_all():
     a = []
     cat = []
@@ -134,6 +161,6 @@ def get_all():
                 image_urls[ii],
             ]
             c.writerow(row)
-        clear_global()
         csvfile.close()
         i += 1
+"""
