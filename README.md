@@ -13,7 +13,7 @@ While it is in action it get information by book:
  - Review Rating
  - Book Image URL
 
-Then it class this datas in a CSV file by category.
+Then it classes this datas in a CSV file by category.
 
 Each CSV files are located in the directory 'CSV_Files'.
 
@@ -23,7 +23,7 @@ The Script also get the Book Image 'jpg' and add them to the directory 'Images'.
 
 Installation:
 
-- Clone the github repository:
+- Clone the GitHub repository:
   - git clone https://github.com/GrolschSec/ScrapBook.git
 - Go to ScrapBook directory:
   - cd ScrapBook
