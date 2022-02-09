@@ -21,7 +21,7 @@ The Script also get the Book Image 'jpg' and add them to the directory 'Images'.
 
 
 
-Instalation:
+Installation:
 
 - Clone the github repository:
   - git clone https://github.com/GrolschSec/ScrapBook.git
@@ -40,7 +40,7 @@ Running the script:
   To run the script you have almost nothing to do.
   - Run using python3:
     - python3 main.py
-  - The script asks you if you want to scrape the website, say yes:
-    - Do you want to scrape the website ? (Y/N) y
+  - The script ask you how many categories you want to scrape on the website:
+    - Enter a number between 1 and 50.
   - Then let the script run until it stop by itself.
   - Once it's done you can check the Images and CSV in their own dir.
