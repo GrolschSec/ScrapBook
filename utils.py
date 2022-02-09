@@ -94,6 +94,16 @@ def get_category(base_url, category_url):
     return category_name, links
 
 
+def get_categories(url):
+    categories = []
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, "html.parser")
+    links = soup.find(class_="nav-list").find("ul").findAll("a")
+    for link in links:
+        categories.append(url + link.attrs["href"])
+    return categories
+
+
 def write_csv(csv_path, cat_name, dico):
     header = [
         "Product URL",
