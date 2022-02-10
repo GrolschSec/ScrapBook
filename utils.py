@@ -6,11 +6,24 @@ import os
 
 
 def make_dir(dir_name):
+    """
+    make_dir is a simple function that make a directory in the working directory
+
+    Args:
+        dir_name: The name you want for your directory.
+    """
     os.system("mkdir " + dir_name)
     return None
 
 
 def url_to_jpg(image_url, file_path):
+    """
+    url_to_jpg is a function that download jpg image from an url and save it to a directory.
+
+    Args:
+        image_url: The URL of the image you want to download.
+        file_path: The directory you designed to save the image.
+    """
     filename = image_url.split("/")[8]
     full_path = "{}{}".format(file_path, filename)
     urllib.request.urlretrieve(image_url, full_path)
@@ -20,7 +33,6 @@ def url_to_jpg(image_url, file_path):
 def get_book_info(base_url, book_url):
     """
     This function is used to get all info about a book from his url.
-    This function only work with book.toscrape.com.
 
     Args:
         base_url: Main url of the website.
@@ -68,6 +80,17 @@ def get_book_info(base_url, book_url):
 
 
 def get_category(base_url, category_url):
+    """
+    This function is used to get the links of all books of a category.
+
+    Args:
+        base_url: The main url of the website (just to make the new link for other pages).
+        category_url: The url of the category.
+
+    Returns:
+        category_name: The name of the category.
+        links: The list of the links from all books of the category.
+    """
     page = requests.get(category_url)
     soup = BeautifulSoup(page.content, "html.parser")
     links = []
@@ -95,6 +118,15 @@ def get_category(base_url, category_url):
 
 
 def get_categories(url):
+    """
+    A function to get the links of all categories.
+
+    Args:
+        url: The main url of the website.
+
+    Returns:
+        A list of all the links of the categories.
+    """
     categories = []
     page = requests.get(url)
     soup = BeautifulSoup(page.content, "html.parser")
@@ -105,6 +137,14 @@ def get_categories(url):
 
 
 def write_csv(csv_path, cat_name, dico):
+    """
+    A function to write data in a CSV file.
+
+    Args:
+        csv_path: The path to save the csv files.
+        cat_name: The category name that we will use to name the csv file.
+        dico: The dictionary with the data that we want to write in the csv file.
+    """
     header = [
         "Product URL",
         "Universal Product Code",
