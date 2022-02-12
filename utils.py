@@ -15,7 +15,6 @@ def make_dir(dir_name):
     os.system("mkdir " + dir_name)
 
 
-
 def url_to_jpg(image_url, file_path):
     """
     url_to_jpg is a function that download jpg image from an url and save it to a directory.
