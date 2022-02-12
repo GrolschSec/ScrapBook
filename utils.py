@@ -13,7 +13,7 @@ def make_dir(dir_name):
         dir_name: The name you want for your directory.
     """
     os.system("mkdir " + dir_name)
-    return None
+
 
 
 def url_to_jpg(image_url, file_path):
@@ -27,7 +27,6 @@ def url_to_jpg(image_url, file_path):
     filename = image_url.split("/")[8]
     full_path = "{}{}".format(file_path, filename)
     urllib.request.urlretrieve(image_url, full_path)
-    return None
 
 
 def get_book_info(base_url, book_url):
@@ -50,33 +49,32 @@ def get_book_info(base_url, book_url):
         image_url: The url of the image to descript the book.
     """
     page = requests.get(book_url)
-    if page.ok:
-        soup = BeautifulSoup(page.content, "html.parser")
-        book_swap = soup.find_all("td", class_=False)
-        upc = book_swap[0].text
-        title = soup.find("h1").text
-        pit = book_swap[3].text
-        pet = book_swap[2].text
-        na = book_swap[5].text.split(" ")[2].replace("(", "")
-        pd = soup.find_all("p")[3].text
-        category = soup.find_all("a")[3].text
-        rr = soup.find("p", class_="star-rating").attrs["class"][1]
-        image_url = base_url + soup.find("img").attrs["src"].replace("../../", "/")
-        dico = {
-            "product_url": book_url,
-            "universal_product_code": upc,
-            "title": title,
-            "price_including_tax": pit,
-            "price_excluding_tax": pet,
-            "number_available": na,
-            "product_description": pd,
-            "category": category,
-            "review_rating": rr,
-            "image_url": image_url,
-        }
-        return dico, image_url
-    else:
-        print("Status Code: " + str(page.status_code))
+    if not page.ok:
+        return
+    soup = BeautifulSoup(page.content, "html.parser")
+    book_swap = soup.find_all("td", class_=False)
+    upc = book_swap[0].text
+    title = soup.find("h1").text
+    pit = book_swap[3].text
+    pet = book_swap[2].text
+    na = book_swap[5].text.split(" ")[2].replace("(", "")
+    pd = soup.find_all("p")[3].text
+    category = soup.find_all("a")[3].text
+    rr = soup.find("p", class_="star-rating").attrs["class"][1]
+    image_url = base_url + soup.find("img").attrs["src"].replace("../../", "/")
+    dico = {
+        "product_url": book_url,
+        "universal_product_code": upc,
+        "title": title,
+        "price_including_tax": pit,
+        "price_excluding_tax": pet,
+        "number_available": na,
+        "product_description": pd,
+        "category": category,
+        "review_rating": rr,
+        "image_url": image_url,
+    }
+    return dico, image_url
 
 
 def get_category(base_url, category_url):
@@ -163,4 +161,3 @@ def write_csv(csv_path, cat_name, dico):
     for data in dico:
         c.writerow(data.values())
     csvfile.close()
-    return None

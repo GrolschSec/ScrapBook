@@ -15,9 +15,10 @@ if user_input >= 1 and not user_input > 50:
         data = []
         print("Getting info about books in category " + category_name)
         for link in links:
+            make_dir(category_name)
             x = get_book_info(url, link)
             data.append(x[0])
-            url_to_jpg(x[1], "Images/")
+            url_to_jpg(x[1], "Images/" + category_name + "/")
         write_csv("CSV_Files/", category_name, data)
         i += 1
 else:
