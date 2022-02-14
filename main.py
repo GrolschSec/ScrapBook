@@ -10,7 +10,7 @@ if user_input >= 1 and not user_input > 50:
     i = 0
     while i != user_input:
         category = get_category(url, categories[i])
-        category_name = category[0]
+        category_name = category[0].strip().replace(" ", "_")
         links = category[1]
         data = []
         print("Getting info about books in category " + category_name)
