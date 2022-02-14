@@ -1,7 +1,7 @@
 from utils import *
 
 print("Welcome to ScrapBook !\nA Scrapping tool for book.toscrape.com\n")
-user_input = int(input("Choose a number of category to scrape (min: 1, max: 50): "))
+user_input = user_input_attribution()
 if user_input >= 1 and not user_input > 50:
     url = "https://books.toscrape.com/"
     make_dir("Images")
@@ -14,8 +14,8 @@ if user_input >= 1 and not user_input > 50:
         links = category[1]
         data = []
         print("Getting info about books in category " + category_name)
+        make_dir("Images/" + category_name)
         for link in links:
-            make_dir(category_name)
             x = get_book_info(url, link)
             data.append(x[0])
             url_to_jpg(x[1], "Images/" + category_name + "/")

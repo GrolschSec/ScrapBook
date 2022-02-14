@@ -15,7 +15,6 @@ def make_dir(dir_name):
     os.system("mkdir " + dir_name)
 
 
-
 def url_to_jpg(image_url, file_path):
     """
     url_to_jpg is a function that download jpg image from an url and save it to a directory.
@@ -161,3 +160,19 @@ def write_csv(csv_path, cat_name, dico):
     for data in dico:
         c.writerow(data.values())
     csvfile.close()
+
+
+def user_input_attribution():
+    user_choice = int(
+        input(
+            'Choose "1" if you want to get info about all categories.\n'
+            'Choose "2" if you want info about a number of categories of your choice.\n'
+            'Type "1" or "2": '
+        )
+    )
+    if user_choice == 1:
+        return 50
+    elif user_choice == 2:
+        return int(input("Choose a number of category to scrape (min: 1, max: 50): "))
+    else:
+        return 0
