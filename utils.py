@@ -163,6 +163,11 @@ def write_csv(csv_path, cat_name, dico):
 
 
 def user_input_attribution():
+    """
+    This function is used to choose the value the user wants to attribute to the variable user_input
+    Returns:
+        An integral that is going to be used in the main function in the variable user_input
+    """
     user_choice = int(
         input(
             'Choose "1" if you want to get info about all categories.\n'
