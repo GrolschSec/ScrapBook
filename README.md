@@ -1,3 +1,6 @@
+# ScrapBook
+
+## Project 2 OpenClassrooms D-A Python
 ScrapBook is a Scraping tool made to scrap the content of the website: 
 "book.toscrape.com"
 
