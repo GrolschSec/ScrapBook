@@ -24,15 +24,25 @@ The Script also get the Book Image 'jpg' and add them to the directory 'Images'.
 Installation:
 
 - Clone the GitHub repository:
-  - git clone https://github.com/GrolschSec/ScrapBook.git
+```
+git clone https://github.com/GrolschSec/ScrapBook.git
+```
 - Go to ScrapBook directory:
-  - cd ScrapBook
+```
+cd ScrapBook
+```
 - Create a virtual environments using python3 venv tool:
-  - python3 -m venv env
+```
+python3 -m venv env
+```
 - Load the virtual environment:
-  - source env/bin/activate
+```
+source env/bin/activate
+```
 - Install the requirements for the script:
-  - python3 -m pip install -r requirements.txt
+```
+python3 -m pip install -r requirements.txt
+```
 
 
 Running the script: 
