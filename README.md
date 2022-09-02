@@ -50,7 +50,7 @@ python3 -m pip install -r requirements.txt
 ```
 python3 main.py
 ```
-
+## Launch the script
 * The script ask you if you want to get all categories or a number of categories:
   * If you type 1 then it downloads all categories automatically.
   * If you type 2 it asks you how many categories you want to scrape on the website: 
