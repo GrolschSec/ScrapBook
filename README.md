@@ -43,16 +43,14 @@ source env/bin/activate
 ```
 python3 -m pip install -r requirements.txt
 ```
+- Run the script: 
+```
+python3 main.py
+```
 
-
-Running the script: 
-
-  To run the script you have almost nothing to do.
-  - Run using python3:
-    - python3 main.py
-    - The script ask you if you want to get all categories or a number of categories:
-      - If you type 1 then it downloads all categories automatically.
-      - If you type 2 it asks you how many categories you want to scrape on the website: 
-        - Enter a number between 1 and 50.
-  - Then let the script run until it stop by itself.
-  - Once it's done you can check the Images and CSV in their own dir.
+- The script ask you if you want to get all categories or a number of categories:
+ - If you type 1 then it downloads all categories automatically.
+ - If you type 2 it asks you how many categories you want to scrape on the website: 
+  - Enter a number between 1 and 50.
+- Then let the script run until it stop by itself.
+- Once it's done you can check the Images and CSV in their own dir.
