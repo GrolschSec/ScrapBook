@@ -21,7 +21,7 @@ The Script also get the Book Image 'jpg' and add them to the directory 'Images'.
 
 
 
-Installation:
+## Installation:
 
 - Clone the GitHub repository:
 ```
